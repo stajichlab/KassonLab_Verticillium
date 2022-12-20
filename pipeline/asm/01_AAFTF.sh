@@ -21,7 +21,7 @@ FASTQ=input
 SAMPLEFILE=samples.csv
 ASM=asm/AAFTF
 WORKDIR=$SCRATCH
-WORKDIR=working_AAFTF
+#WORKDIR=working_AAFTF
 PHYLUM=Ascomycota
 mkdir -p $ASM $WORKDIR
 if [ -z $CPU ]; then
