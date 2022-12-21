@@ -53,24 +53,23 @@ do
     MERGED=$WORKDIR/${BASE}_filtered_U.fastq.gz
 
     echo "$BASE $ID $STRAIN"
-    if [ ! -f $ASMFILE ]; then # can skip we already have made an assembly
-	if [ ! -f $LEFT ]; then
-	    if [ ! -f $LEFTTRIM ]; then
-		AAFTF trim --method fastp --dedup --merge --memory $MEM --left $LEFTIN --right $RIGHTIN -c $CPU -o $WORKDIR/${BASE}_fastp
-		AAFTF trim --method fastp --cutright -c $CPU --memory $MEM --left $WORKDIR/${BASE}_fastp_1P.fastq.gz --right $WORKDIR/${BASE}_fastp_2P.fastq.gz -o $WORKDIR/${BASE}_fastp2
-		AAFTF trim --method bbduk -c $CPU --memory $MEM --left $WORKDIR/${BASE}_fastp2_1P.fastq.gz --right $WORKDIR/${BASE}_fastp2_2P.fastq.gz -o $WORKDIR/${BASE}
-	    fi
-	    AAFTF filter -c $CPU --memory $MEM -o $WORKDIR/${BASE} --left $LEFTTRIM --right $RIGHTTRIM --aligner bbduk
-	    AAFTF filter -c $CPU --memory $MEM -o $WORKDIR/${BASE} --left $MERGETRIM --aligner bbduk
-	    if [ -f $LEFT ]; then
-		rm -f $LEFTTRIM $RIGHTTRIM $WORKDIR/${BASE}_fastp* 
-		echo "found $LEFT"
-	    else
-		echo "did not create left file ($LEFT $RIGHT)"
-		exit
-	    fi
-	    
+    if [ ! -f $LEFT ]; then
+	if [ ! -f $LEFTTRIM ]; then
+	    AAFTF trim --method fastp --dedup --merge --memory $MEM --left $LEFTIN --right $RIGHTIN -c $CPU -o $WORKDIR/${BASE}_fastp
+	    AAFTF trim --method fastp --cutright -c $CPU --memory $MEM --left $WORKDIR/${BASE}_fastp_1P.fastq.gz --right $WORKDIR/${BASE}_fastp_2P.fastq.gz -o $WORKDIR/${BASE}_fastp2
+	    AAFTF trim --method bbduk -c $CPU --memory $MEM --left $WORKDIR/${BASE}_fastp2_1P.fastq.gz --right $WORKDIR/${BASE}_fastp2_2P.fastq.gz -o $WORKDIR/${BASE}
 	fi
+	AAFTF filter -c $CPU --memory $MEM -o $WORKDIR/${BASE} --left $LEFTTRIM --right $RIGHTTRIM --aligner bbduk
+	AAFTF filter -c $CPU --memory $MEM -o $WORKDIR/${BASE} --left $MERGETRIM --aligner bbduk
+	if [ -f $LEFT ]; then
+	    rm -f $LEFTTRIM $RIGHTTRIM $WORKDIR/${BASE}_fastp* 
+	    echo "found $LEFT"
+	else
+	    echo "did not create left file ($LEFT $RIGHT)"
+	    exit
+	fi	
+    fi
+    if [ ! -f $ASMFILE ]; then # can skip we already have made an assembly
 	
 	AAFTF assemble -c $CPU --left $LEFT --right $RIGHT --merged $MERGED --memory $MEM \
 	      -o $ASMFILE -w $WORKDIR/spades_${ID}
