@@ -9,8 +9,9 @@ OUTDIR=genomes
 
 mkdir -p $OUTDIR
 IFS=, # set the delimiter to be ,
-tail -n +2 $SAMPLEFILE | while read ID BASE SPECIES STRAIN LOCUSTAG TYPESTRAIN
-do
+tail -n +2 $SAMPLEFILE | sed -n ${N}p | while read BASE ILLUMINASAMPLE SPECIES STRAIN PROJECT DESCRIPTION ASMFOCUS
+do    
+    ID=$STRAIN
     for type in AAFTF
     do
 	if [ ! -f $INDIR/$type/$ID.sorted.fasta ]; then

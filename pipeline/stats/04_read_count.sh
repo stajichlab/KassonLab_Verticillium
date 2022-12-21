@@ -1,6 +1,6 @@
 #!/usr/bin/bash -l
 
-#SBATCH --nodes 1 --ntasks 24 --mem 24G -p batch -J readcount --out logs/bbcount.%a.log --time 48:00:00
+#SBATCH --nodes 1 --ntasks 24 --mem 24G -p short -J readcount --out logs/bbcount.%a.log -a 1-9
 module load BBMap
 hostname
 MEM=24
@@ -24,12 +24,11 @@ SAMPLES=samples.csv
 mkdir -p $OUTDIR
 
 IFS=, # set the delimiter to be ,
-IFS=, # set the delimiter to be ,
-tail -n +2 $SAMPLES | sed -n ${N}p | while read ID BASE SPECIES STRAIN LOCUSTAG TYPESTRAIN
-do
-    
-    LEFT=$(realpath $INDIR/${BASE}_R1.fastq.gz)
-    RIGHT=$(realpath $INDIR/${BASE}_R2.fastq.gz)
+tail -n +2 $SAMPLEFILE | sed -n ${N}p | while read BASE ILLUMINASAMPLE SPECIES STRAIN PROJECT DESCRIPTION ASMFOCUS
+do    
+    ID=$STRAIN    
+    LEFT=$(realpath $INDIR/${BASE}_${ILLUMINASAMPLE}_R1_001.fastq.gz)
+    RIGHT=$(realpath $INDIR/${BASE}_${ILLUMINASAMPLE}_R2_001.fastq.gz)
     
     echo "$LEFT $RIGHT"
     for type in AAFTF
