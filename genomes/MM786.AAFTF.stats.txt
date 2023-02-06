@@ -1,0 +1,15 @@
+Assembly statistics for: genomes/MM786.AAFTF.fasta
+   CONTIG COUNT  =  441
+   TOTAL LENGTH  =  33416376
+            MIN  =  525
+            MAX  =  500291
+         MEDIAN  =  44730
+           MEAN  =  75774.10
+            L50  =  70
+            N50  =  140326
+            L90  =  232
+            N90  =  41985
+            GC%  =  55.10
+  T2T SCAFFOLDS  =  0
+   TELOMERE FWD  =  8
+   TELOMERE REV  =  8

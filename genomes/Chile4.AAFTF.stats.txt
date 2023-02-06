@@ -1,0 +1,15 @@
+Assembly statistics for: genomes/Chile4.AAFTF.fasta
+   CONTIG COUNT  =  1
+   TOTAL LENGTH  =  7602
+            MIN  =  7602
+            MAX  =  7602
+         MEDIAN  =  7602
+           MEAN  =  7602.00
+            L50  =  1
+            N50  =  7602
+            L90  =  1
+            N90  =  7602
+            GC%  =  53.30
+  T2T SCAFFOLDS  =  0
+   TELOMERE FWD  =  0
+   TELOMERE REV  =  0

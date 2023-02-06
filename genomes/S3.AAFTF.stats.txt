@@ -1,0 +1,15 @@
+Assembly statistics for: genomes/S3.AAFTF.fasta
+   CONTIG COUNT  =  726
+   TOTAL LENGTH  =  32890224
+            MIN  =  503
+            MAX  =  349774
+         MEDIAN  =  26227
+           MEAN  =  45303.34
+            L50  =  110
+            N50  =  92211
+            L90  =  374
+            N90  =  25427
+            GC%  =  55.17
+  T2T SCAFFOLDS  =  0
+   TELOMERE FWD  =  9
+   TELOMERE REV  =  9

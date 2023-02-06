@@ -1,0 +1,15 @@
+Assembly statistics for: genomes/WVU.AAFTF.fasta
+   CONTIG COUNT  =  615
+   TOTAL LENGTH  =  35138363
+            MIN  =  501
+            MAX  =  543452
+         MEDIAN  =  31542
+           MEAN  =  57135.55
+            L50  =  85
+            N50  =  115556
+            L90  =  300
+            N90  =  33527
+            GC%  =  53.28
+  T2T SCAFFOLDS  =  0
+   TELOMERE FWD  =  5
+   TELOMERE REV  =  10

@@ -1,0 +1,15 @@
+Assembly statistics for: genomes/MD4.AAFTF.fasta
+   CONTIG COUNT  =  994
+   TOTAL LENGTH  =  34772878
+            MIN  =  501
+            MAX  =  456104
+         MEDIAN  =  18776
+           MEAN  =  34982.77
+            L50  =  138
+            N50  =  75614
+            L90  =  472
+            N90  =  20509
+            GC%  =  53.44
+  T2T SCAFFOLDS  =  0
+   TELOMERE FWD  =  9
+   TELOMERE REV  =  10
