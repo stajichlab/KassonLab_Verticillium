@@ -1,5 +1,5 @@
 #!/bin/bash -l
-#SBATCH -p batch -N 1 -n 24 --mem 64gb --out logs/AAFTF.%a.log
+#SBATCH -N 1 -n 24 --mem 64gb --out logs/AAFTF.%a.log
 
 # requires AAFTF 0.3.1 or later for full support of fastp options used
 
