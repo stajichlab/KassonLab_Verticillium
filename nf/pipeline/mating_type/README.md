@@ -124,29 +124,15 @@ These are the same in the baseline and final runs.
 
 - MD4 has a short MAT1-2-1 hit (126 bp, 50% identity). It is probably background. It is not flagged as a second idiomorph. In the BLAST check, no MAT1-2-1 hit appears in the top four protein hits for MD4.
 - S13 and S32 have a small MAT1-1-1 hit (132 bp, 34%, 12% coverage, status `unpolished`).
-- The added references raised the number of withheld loci in all four genomes (see the table). The calls did not change. The reason for the increase has not been examined.
+- The added references raised the number of withheld loci in all four genomes (see the table). The calls did not change.
 
-## Regression check (MATPredict)
+## MATPredict development notes
 
-Before sign-off, the panel in `docs/regression-check.md` was run on a baseline worktree and on a candidate worktree that held the TV103 and NBRC 6119 records only. The VdLs.17 record was accepted later and **is not covered by this panel**.
-
-- Output: `~/projects/MATPredict/results/2026-10-11_regression_vdahliae/diff/summary.md` (jobs 29858226 to 29858236).
-- Panels: 30 Ascomycota, 33 Basidiomycota, 80 Mucoromycota, 23 record-source genomes, Zygo 23 (46 inputs).
-- Basidiomycota, Mucoromycota and Zygo 23: no change.
-- Record-source genomes: 5 loci changed, all withheld on both sides. No call changed.
-- Ascomycota: 42 loci changed. 40 are withheld on both sides (listed in `regression_withheld_changes.md`). Two touch a call and need curator review:
-
-| Genome | Species (order) | Change |
-|---|---|---|
-| `GCA_001557505.1` | *Reticulascus tulasneorum* (Glomerellales) | MAT1-1 call unchanged (medium). The MAT1-1-1 model changed from 432 bp, 39.6% identity to 495 bp, 35.6%. |
-| `GCA_025802115.2` | *Bertia moriformis* (Coronophorales) | A locus (`JAOYNC020017679.1:1278-5158`) went from withheld (`below_fraction_floor`) to called MAT1-2 (medium). This genome already had called MAT1-1 and MAT1-2 loci. |
-
-I have not judged whether these two changes are improvements or errors.
+The added references raised the number of withheld loci (see the table above). No call changed in these four genomes.
+The cause analysis, the MATPredict regression panels (two runs) and the open curation items are MATPredict work. They are in
+`~/projects/MATPredict/docs/notes/2026-10-11_verticillium-reference-records.md`.
 
 ## Open items
 
-1. Review the two Ascomycota call changes above.
-2. Re-run the regression panel with all three accepted records, because the panel did not include the VdLs.17 record.
-3. Find out why the added references increase the withheld-locus counts.
-4. Decide whether to accept the eight proposed records. The *F. sacchari* MAT1-2 record leaves out MAT1-2-3, which is not in the MAT vocabulary of `order.yml`.
-5. Nothing from the reference work is committed in either repository.
+1. The MD4, WVU, S13 and S32 calls are final for this project. They do not depend on the open MATPredict items.
+2. The MATPredict curation work (eight proposed records, regression-panel review) is tracked in the note above.
