@@ -30,6 +30,8 @@ The taxids come from `pipeline/annotation/funannotate_meta.tsv`. The sheet is `m
 
 The search uses the genome, not the funannotate proteins. A MAT gene missed by the annotation can still be found.
 
+The result depends on the MATPredict reference database at the time of the run. See [Reference database](#reference-database).
+
 ## How to run
 
 Run from `nf/`:
@@ -37,11 +39,12 @@ Run from `nf/`:
 ```bash
 sbatch --array=1-4 pipeline/mating_type/01_matpredict.sh   # one task per genome
 bash pipeline/mating_type/02_summarize.sh                  # after all tasks finish
+bash pipeline/mating_type/02_summarize.sh results/mating_type_final   # optional: another results directory
 ```
 
 Each task uses 4 CPUs, 16 GB and a 2.5 h limit. These are the limits of `run_detection_batch.slurm` in MATPredict. They have not been tuned for these genomes.
 
-The script sets `MATPREDICT_DB_ROOT` and `MATPREDICT_CACHE_DIR` to the MATPredict checkout. It sets `MATPREDICT_NCBI_EMAIL` to the user's address if the variable is unset.
+The script sets `MATPREDICT_DB_ROOT` and `MATPREDICT_CACHE_DIR` to the MATPredict checkout (`~/projects/MATPredict`). The database in that checkout is what the run uses. It sets `MATPREDICT_NCBI_EMAIL` to the user's address if the variable is unset.
 
 ## Output
 
@@ -56,12 +59,94 @@ The script sets `MATPREDICT_DB_ROOT` and `MATPREDICT_CACHE_DIR` to the MATPredic
 - `idiomorph` is MAT1-1, MAT1-2 or `undetermined`. Check `confidence` and `locus_class`.
 - A genome with no call gets `none` in the summary. Read `routing_mode` and `withheld_loci` before you treat `none` as a real absence.
 - A non-empty `two_idiomorphs` is a flag for review. It can mean a homothallic strain, or a collapsed or mixed assembly.
-- *Verticillium* (Glomerellales) has no curated record of its own. Records of related Hypocreales and Sordariales genomes carry the search. Lineage distance can reduce sensitivity. This has not been measured for *Verticillium* here.
+- `withheld_loci` counts candidate loci that the evidence gates rejected. It is not a count of MAT loci.
+- The identity of the core MAT hit (in `gene_evidence`) shows how close the genome is to the reference that matched. Low identity means a distant reference, not necessarily a wrong call.
+
+## Reference database
+
+At the first run (2026-10-10), the database had no *Verticillium* or Glomerellales record. The core MAT hits matched references from other orders at 34 to 50% identity.
+
+Three *V. dahliae* records were then curated and accepted into `~/projects/MATPredict/db/Ascomycota/Glomerellales/` (2026-10-11, signed off by J. Stajich):
+
+| Record | Source | Content |
+|---|---|---|
+| `27337_tv103_MAT_MAT1-2` | GenBank `AB505214.1`, strain TV103 (Usami et al. 2009, doi:10.1007/s10327-009-0197-6) | MAT1-2-1 only; the deposit does not annotate flanking genes |
+| `27337_nbrc6119_MAT_MAT1-1` | GenBank `AB505215.1`, strain NBRC 6119 (same paper; the strain is named in the Fig. 2 legend, not on the deposit) | MAT1-1-1 only |
+| `27337_vdls-17_MAT_MAT1-2` | RefSeq `GCF_000150675.1`, scaffold `NW_009276925.1`, strain VdLs.17 (genome-derived) | Full locus: SLA2, MAT1-2-1, APN2, COX13 |
+
+Notes on the records:
+
+- The VdLs.17 MAT1-2-1 protein (`XP_009651392.1`, 232 aa) contains the TV103 protein (`BAH66364.1`, 156 aa) at 100% identity over all 156 aa. The RefSeq model is 76 aa longer at the N terminus.
+- *V. dahliae* JR2 (`GCA_000400815.2`, `CP009079.1:3830361-3865909`) has the same arrangement and a MAT1-2 call. It is not a record.
+- Both Usami deposits come from one paper. NBRC 6119 is the isolate that lacks MAT1-2-1 (PCR and Southern blot), and the MAT1-1 idiomorph was cloned from its genomic library.
+- Short et al. 2014 (PMID 25383550) report that 12 of 1,120 *V. dahliae* isolates (1%) were MAT1-1. The MD4 MAT1-1 call is therefore the rare type.
+
+Eight more records from other species are proposed in `db/candidates/Ascomycota/` but not accepted, so they do not affect these runs: *Fulvia fulva* (2), *Penicillium chrysogenum* (2), *Eupenicillium crustaceum* (2, homothallic) and *Fusarium sacchari* (2).
 
 ## Status
 
-Job 29819424 submitted 2026-10-10. It was pending (`AssocGrpCpuLimit`) when this was written. No results yet.
+| Run | Database | Directory | Job |
+|---|---|---|---|
+| Baseline | no *Verticillium* record | `results/mating_type/` | 29819424 |
+| With 2 Usami records | frozen worktree `run-e9060daf32-vdahliae` | `results/mating_type_vref/` | 29858243 |
+| Final | live database, 3 *V. dahliae* records | `results/mating_type_final/` | 29858995 |
+
+All tasks finished and exited 0 (3 to 7 min each). The summary table of the final run is `results/mating_type_final/mating_type_summary.tsv`.
 
 ## Results
 
-To be filled in after the run (do not enter values that are not in `mating_type_summary.tsv`).
+The call is the same in all three runs. The evidence changes.
+
+| Sample | Call | Locus in final run (contig:start-end) | Core hit identity: baseline → final | Margin: baseline → final | Withheld loci: baseline → final |
+|---|---|---|---|---|---|
+| Verticillium_dahliae_MD4 | MAT1-1 | MTK05_279:10347-28213 | MAT1-1-1: 38.4% → 100% | 46.6 → 607.9 | 12 → 16 |
+| Verticillium_dahliae_WVU | MAT1-2 | MTK08_229:12812-30522 | MAT1-2-1: 43.2% → 100% | 18.1 → 63.8 | 13 → 16 |
+| Verticillium_nonalfalfae_S13 | MAT1-2 | MTK06_1:270937-314050 | MAT1-2-1: 44.1% → 94.8% | 64.0 → 255.4 | 13 → 18 |
+| Verticillium_nonalfalfae_S32 | MAT1-2 | MTK07_16:4337-32180 | MAT1-2-1: 44.1% → 94.8% | 64.0 → 255.4 | 15 → 20 |
+
+All four: confidence `high`, routing `lineage`, `two_idiomorphs` empty. In the final run, the core hits have status `polished_agree`.
+
+### Independent check (BLAST, no MATPredict)
+
+The two Usami deposits were searched against the four genomes with `blastn` and `tblastn` (2026-10-11).
+
+| Sample | Best nucleotide match | Best protein match |
+|---|---|---|
+| MD4 | `AB505215` (MAT1-1), 99.6% over 5,849 bp (the whole deposit) | MAT1-1-1, 99.7% and 100% (two hits, 311 and 110 aa) |
+| WVU | `AB505214` (MAT1-2), 99.4% over 8,504 bp (the whole deposit) | MAT1-2-1, 90.1% |
+| S13, S32 | `AB505214` (MAT1-2), 88.5% over 7,474 bp plus 89.7% over 1,088 bp | MAT1-2-1, 84.3% |
+
+WVU, S13 and S32 have no MAT1-1-1 hit above 29% identity. MD4 has no strong MAT1-2-1 hit in the top four hits. These results agree with all four MATPredict calls. The identity values come from two tools with different alignments (`tblastn` here, `exonerate` in MATPredict), so they are not directly comparable. In both, the *V. nonalfalfae* genomes (S13, S32) have lower identity than the *V. dahliae* genomes, as expected for a reference from another species.
+
+### Remaining weak hits
+
+These are the same in the baseline and final runs.
+
+- MD4 has a short MAT1-2-1 hit (126 bp, 50% identity). It is probably background. It is not flagged as a second idiomorph. In the BLAST check, no MAT1-2-1 hit appears in the top four protein hits for MD4.
+- S13 and S32 have a small MAT1-1-1 hit (132 bp, 34%, 12% coverage, status `unpolished`).
+- The added references raised the number of withheld loci in all four genomes (see the table). The calls did not change. The reason for the increase has not been examined.
+
+## Regression check (MATPredict)
+
+Before sign-off, the panel in `docs/regression-check.md` was run on a baseline worktree and on a candidate worktree that held the TV103 and NBRC 6119 records only. The VdLs.17 record was accepted later and **is not covered by this panel**.
+
+- Output: `~/projects/MATPredict/results/2026-10-11_regression_vdahliae/diff/summary.md` (jobs 29858226 to 29858236).
+- Panels: 30 Ascomycota, 33 Basidiomycota, 80 Mucoromycota, 23 record-source genomes, Zygo 23 (46 inputs).
+- Basidiomycota, Mucoromycota and Zygo 23: no change.
+- Record-source genomes: 5 loci changed, all withheld on both sides. No call changed.
+- Ascomycota: 42 loci changed. 40 are withheld on both sides (listed in `regression_withheld_changes.md`). Two touch a call and need curator review:
+
+| Genome | Species (order) | Change |
+|---|---|---|
+| `GCA_001557505.1` | *Reticulascus tulasneorum* (Glomerellales) | MAT1-1 call unchanged (medium). The MAT1-1-1 model changed from 432 bp, 39.6% identity to 495 bp, 35.6%. |
+| `GCA_025802115.2` | *Bertia moriformis* (Coronophorales) | A locus (`JAOYNC020017679.1:1278-5158`) went from withheld (`below_fraction_floor`) to called MAT1-2 (medium). This genome already had called MAT1-1 and MAT1-2 loci. |
+
+I have not judged whether these two changes are improvements or errors.
+
+## Open items
+
+1. Review the two Ascomycota call changes above.
+2. Re-run the regression panel with all three accepted records, because the panel did not include the VdLs.17 record.
+3. Find out why the added references increase the withheld-locus counts.
+4. Decide whether to accept the eight proposed records. The *F. sacchari* MAT1-2 record leaves out MAT1-2-3, which is not in the MAT vocabulary of `order.yml`.
+5. Nothing from the reference work is committed in either repository.

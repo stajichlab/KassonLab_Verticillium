@@ -2,10 +2,11 @@
 # 02_summarize.sh — collect the MATPredict calls into results/mating_type/mating_type_summary.tsv.
 # One row per called locus. A genome with no called locus gets one row with call "none".
 # Run from any directory after 01_matpredict.sh has finished.
+# Optional argument: a results directory other than results/mating_type (for example results/mating_type_final).
 set -euo pipefail
 
 PROJ=/bigdata/stajichlab/shared/projects/KassonLab/Verticillium/nf
-OUTROOT=$PROJ/results/mating_type
+OUTROOT=${1:-$PROJ/results/mating_type}
 
 /usr/bin/python3.12 - "$OUTROOT" <<'PY'
 import sys, glob, os, yaml
