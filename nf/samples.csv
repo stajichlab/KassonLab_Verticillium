@@ -1,0 +1,5 @@
+Sample,IlluminaSample,Species,SeqStrain,Strain,Project,Description,AssemblyFocus,BioProject,BioSample,LOCUSTAG
+MTK05,S5,Verticillium dahliae,MD4,VdAaMD4,Verticillium,pure culture,single,PRJNA1542030,SAMN64094693,ADAU85
+MTK06,S6,Verticillium nonalfalfae,S13,VnAa172,Verticillium,pure culture,single,PRJNA1542030,SAMN64095031,ADAU87
+MTK07,S7,Verticillium nonalfalfae,S32,VnAaVA2,Verticillium,pure culture,single,PRJNA1542030,SAMN64095373,ADAU88
+MTK08,S8,Verticillium dahliae,WVU,VdAaWV1,Verticillium,pure culture,single,PRJNA1542030,SAMN64094952,ADAU86
