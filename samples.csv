@@ -1,13 +1,13 @@
-Sample,IlluminaSample,Species,Strain,Project,Description,AssemblyFocus
-MTK01,S1,Verticillium nonalfalfae,MM786,Verticillium,pure culture,single
-MTK02,S2,Verticillium nonalfalfae,S3,Verticillium,pure culture,single
-MTK03,S3,Verticillium nonalfalfae,S26,Verticillium,pure culture,single
-MTK04,S4,Verticillium nonalfalfae,Chile4,Verticillium,pure culture,single
-MTK05,S5,Verticillium nonalfalfae,MD4,Verticillium,pure culture,single
-MTK06,S6,Verticillium nonalfalfae,S13,Verticillium,pure culture,single
-MTK07,S7,Verticillium nonalfalfae,S32,Verticillium,pure culture,single
-MTK08,S8,Verticillium nonalfalfae,WVU,Verticillium,pure culture,single
-MTK09,S9,Verticillium nonalfalfae,Sylvan,Verticillium,pure culture,single
-KHP1,S1_L001,Verticillium sp.,Chile4,Verticillium,pure culture,single
-KHP2,S2_L001,Verticillium sp.,Chile3,Verticillium,pure culture,single
-KHP3,S3_L001,Verticillium sp.,S4,Verticillium,pure culture,single
+Sample,IlluminaSample,Species,SeqStrain,Strain,Project,Description,AssemblyFocus,BioProject,BioSample,LOCUSTAG
+MTK01,S1,Verticillium nonalfalfae,MM786,,Verticillium,pure culture,single,,,
+MTK02,S2,Verticillium nonalfalfae,S3,,Verticillium,pure culture,single,,,
+MTK03,S3,Verticillium nonalfalfae,S26,,Verticillium,pure culture,single,,,
+MTK04,S4,Verticillium nonalfalfae,Chile4-1,,Verticillium,pure culture,single,,,
+MTK05,S5,Verticillium dahliae,MD4,VdAaMD4,Verticillium,pure culture,single,PRJNA1542030,SAMN64094693,ADAU85
+MTK06,S6,Verticillium nonalfalfae,S13,VnAa172,Verticillium,pure culture,single,PRJNA1542030,SAMN64095031,ADAU87
+MTK07,S7,Verticillium nonalfalfae,S32,VnAaVA2,Verticillium,pure culture,single,PRJNA1542030,SAMN64095373,ADAU88
+MTK08,S8,Verticillium dahliae,WVU,VdAaWV1,Verticillium,pure culture,single,PRJNA1542030,SAMN64094952,ADAU86
+MTK09,S9,Verticillium nonalfalfae,Sylvan,,Verticillium,pure culture,single,,,
+KHP1,S1_L001,Verticillium sp.,Chile4,,Verticillium,pure culture,single,,,
+KHP2,S2_L001,Verticillium sp.,Chile3,,Verticillium,pure culture,single,,,
+KHP3,S3_L001,Verticillium sp.,S4,,Verticillium,pure culture,single,,,
