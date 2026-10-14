@@ -1,0 +1,13 @@
+sample,read_1,read_2,taxid
+MTK01,MTK01_S1_R1_001.fastq.gz,MTK01_S1_R2_001.fastq.gz,
+MTK02,MTK02_S2_R1_001.fastq.gz,MTK02_S2_R2_001.fastq.gz,
+MTK03,MTK03_S3_R1_001.fastq.gz,MTK03_S3_R2_001.fastq.gz,
+MTK04,MTK04_S4_R1_001.fastq.gz,MTK04_S4_R2_001.fastq.gz,
+MTK05,MTK05_S5_R1_001.fastq.gz,MTK05_S5_R2_001.fastq.gz,
+MTK06,MTK06_S6_R1_001.fastq.gz,MTK06_S6_R2_001.fastq.gz,
+MTK07,MTK07_S7_R1_001.fastq.gz,MTK07_S7_R2_001.fastq.gz,
+MTK08,MTK08_S8_R1_001.fastq.gz,MTK08_S8_R2_001.fastq.gz,
+MTK09,MTK09_S9_R1_001.fastq.gz,MTK09_S9_R2_001.fastq.gz,
+KHP1,KHP1_S1_L001_R1_001.fastq.gz,KHP1_S1_L001_R2_001.fastq.gz,
+KHP2,KHP2_S2_L001_R1_001.fastq.gz,KHP2_S2_L001_R2_001.fastq.gz,
+KHP3,KHP3_S3_L001_R1_001.fastq.gz,KHP3_S3_L001_R2_001.fastq.gz,

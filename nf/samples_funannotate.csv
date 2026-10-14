@@ -1,0 +1,5 @@
+SPECIES,STRAIN,ASMID,LOCUSTAG,BUSCO_LINEAGE,TRANSL_TABLE,NCBI_TAXONID,GENOME
+Verticillium dahliae,MD4,MTK05,ADAU85,ascomycota_odb10,1,27337,results/sort/MTK05.sorted.fasta.gz
+Verticillium nonalfalfae,S13,MTK06,ADAU87,ascomycota_odb10,1,1051616,results/sort/MTK06.sorted.fasta.gz
+Verticillium nonalfalfae,S32,MTK07,ADAU88,ascomycota_odb10,1,1051616,results/sort/MTK07.sorted.fasta.gz
+Verticillium dahliae,WVU,MTK08,ADAU86,ascomycota_odb10,1,27337,results/sort/MTK08.sorted.fasta.gz

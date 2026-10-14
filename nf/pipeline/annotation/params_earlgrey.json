@@ -1,0 +1,6 @@
+{
+  "run_repeatmasker": false,
+  "run_earlgrey": true,
+  "earlgrey_outdir": "results/repeatlibrary",
+  "masked_dir": "input_clean_genomes"
+}
